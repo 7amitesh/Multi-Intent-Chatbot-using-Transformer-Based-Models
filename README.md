@@ -1,166 +1,138 @@
-# 🚀 Intent Detection and Slot Filling Chatbot using BERT and FastAPI
 
-A context-aware, multi-turn chatbot for real-time intent detection and slot filling using BERT-based models. Built with HuggingFace, FastAPI, and deployed via Docker on AWS.
 
----
+```markdown
+# Multi-Intent Chatbot using Transformer Models
+````
+A Dockerized Flask web application for real-time user intent classification.  
+This project fine-tunes transformer-based models (like BERT) to accurately categorize text queries into predefined intents, achieving **94% accuracy** on a custom dataset.
 
-## 🧠 Overview
-
-This project demonstrates a production-level implementation of intent detection and slot filling for NLP applications like voice assistants, customer support bots, and more.
-
-### 🔍 Key Features
-
-* Fine-tuned BERT model (HuggingFace) on SNIPS/ATIS dataset
-* Detects intents like "BookFlight", "PlayMusic", "GetWeather", etc.
-* Extracts relevant slots (entities) like location, date, time
-* Handles multi-turn, context-aware conversations
-* Real-time API via FastAPI
-* Containerized with Docker and deployed on AWS EC2
+![Multi-Intent Chatbot Interface](https://github.com/7amitesh/Multi-Intent-Chatbot-using-Transformer-Based-Models/raw/main/Screenshot_2025-08-21_055136.png)
+*The web interface showing an intent prediction for the query "book me a flight to Delhi".*
 
 ---
+````
+## 🚀 Features
 
-## 📦 Tech Stack
+- **Intent Classification:** Predicts user intent from short text phrases.
+- **Transformer Backend:** Uses a fine-tuned Hugging Face transformer model for NLP.
+- **Web GUI:** Simple browser interface for testing.
+- **RESTful API:** Integration-ready API endpoint.
+- **Dockerized:** Easily deployable with Docker.
 
-* `Python`
-* `HuggingFace Transformers`
-* `BERT` / `DistilBERT`
-* `FastAPI`
-* `Docker`
-* `AWS EC2`
-* Dataset: SNIPS or ATIS
+## 🧠 How It Works
 
----
+1. **User Input:** Type a query (e.g., "book me a flight to Delhi") in the web interface.
+2. **Processing:** Flask backend tokenizes the text and feeds it into the model.
+3. **Prediction:** Model calculates probabilities for each intent.
+4. **Output:** Displays the most likely intent and confidence score.
+````
+## 📁 Project Structure
 
-## 📁 Folder Structure
-
-```
-├── app
-│   ├── main.py             # FastAPI app
-│   ├── model.py            # BERT model wrapper
-│   ├── utils.py            # Tokenizer and preprocessing
-├── data
-│   └── snips_dataset.json  # Training dataset
-├── model
-│   └── saved_model/        # Trained model files
-├── Dockerfile
-├── requirements.txt
-├── README.md
-```
-
----
-
-## 🛠️ Setup Instructions
-
-### 1. Clone the Repo
+````
 
 ```bash
-git clone https://github.com/yourusername/intent-slot-chatbot.git
-cd intent-slot-chatbot
-```
+Multi-Intent-Chatbot-using-Transformer-Based-Models/
+├── app.py                 # Main Flask application
+├── models/                # Model files (git-ignored)
+│   ├── config.json
+│   ├── pytorch_model.bin
+│   └── tokenizer.json
+├── templates/             # HTML templates
+│   └── index.html
+├── static/                # CSS
+│   └── style.css
+├── test.py                # Script to test API
+├── requirements.txt       # Python dependencies
+├── Dockerfile             # Docker image definition
+└── README.md              # Project documentation
+````
 
-### 2. Create Virtual Environment
+## ⚡ Quick Start
+
+### Prerequisites
+- Docker
+- Git
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/7amitesh/Multi-Intent-Chatbot-using-Transformer-Based-Models.git
+cd Multi-Intent-Chatbot-using-Transformer-Based-Models
+````
+
+### 2. Add Model Files
+
+> **Important:** Model files are too large for GitHub.
+> Download them from your source (Hugging Face, Google Drive, etc.) and place them in `models/`.
+
+### 3. Build and Run with Docker
 
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+# Build image
+docker build -t intent-classifier .
+
+# Run container
+docker run -p 5000:5000 intent-classifier
 ```
 
-### 3. Install Dependencies
+### 4. Access the App
+
+Open your browser at: **[http://localhost:5000](http://localhost:5000)**
+Type a query and click "Send" to see the predicted intent.
+
+## 🔌 API Usage
+
+**Endpoint:** `POST /predict`
+
+**Example using `curl`:**
 
 ```bash
-pip install -r requirements.txt
+curl -X POST http://localhost:5000/predict \
+  -H "Content-Type: application/json" \
+  -d '{"text": "I need help resetting my password"}'
 ```
 
-### 4. Download & Prepare Dataset
-
-* You can use HuggingFace `datasets` to download SNIPS:
-
-```python
-from datasets import load_dataset
-dataset = load_dataset("snips_built_in_intents")
-```
-
-### 5. Train Model
-
-```bash
-python train.py  # Training script you will write to fine-tune BERT
-```
-
-### 6. Run FastAPI App
-
-```bash
-uvicorn app.main:app --reload
-```
-
-* Test endpoints via Postman or browser at: `http://127.0.0.1:8000/docs`
-
-### 7. Dockerize & Deploy
-
-```bash
-docker build -t intent-bot .
-docker run -p 8000:8000 intent-bot
-```
-
-* Deploy container to AWS EC2 / Render / Railway
-
----
-
-## 📌 API Example
-
-### POST `/predict`
-
-**Request:**
+**Example Response:**
 
 ```json
 {
-  "text": "Book a flight from Delhi to Mumbai tomorrow at 5 pm"
+  "intent": "password_reset",
+  "confidence": 0.97
 }
 ```
 
-**Response:**
+## 📊 Performance & Tech Details
 
-```json
-{
-  "intent": "BookFlight",
-  "slots": {
-    "from_location": "Delhi",
-    "to_location": "Mumbai",
-    "time": "tomorrow at 5 pm"
-  }
-}
-```
+* **Model:** Fine-tuned BERT-base-uncased
+* **Accuracy:** 94% on \~2,000 sample test set
+* **Framework:** PyTorch, Transformers, Flask
+* **Deployment:** Docker container
 
----
+## 👨‍💻 Author
 
-## 📊 Model Performance
+**Amitesh Sharma**
 
-* Accuracy: \~96% (SNIPS)
-* F1 Score: \~95%
+* GitHub: [@7amitesh](https://github.com/7amitesh)
+* LinkedIn: [Amitesh Sharma](https://www.linkedin.com/in/amitesh-sharma-7a28b421b/)
+* Portfolio: \[Your Portfolio Link]
 
 ---
 
-## ✨ Future Work
+*Demonstrates NLP, model fine-tuning, and MLOps for production deployment.*
 
-* Add RNN-based memory for stronger context tracking
-* Integrate with React/Vue frontend UI
-* Support voice-to-text input
-* Continuous deployment with CI/CD
+````
 
 ---
 
-## 👤 Author
+### ✅ How to Add an Image in GitHub README
 
-**Cristiano Adrian**
+1. Put your screenshot inside the repo (e.g., `Screenshot_2025-08-21_055136.png` in root folder).  
+2. Use the **raw file URL** in Markdown like this:
 
-* GitHub: [yourusername](https://github.com/yourusername)
-* Email: [your.email@example.com](mailto:your.email@example.com)
+```markdown
+![Alt text](https://github.com/YourUsername/YourRepoName/raw/main/Screenshot_2025-08-21_055136.png)
+````
+
+* Replace `YourUsername` and `YourRepoName` with your actual GitHub username and repo.
+* `raw/main/` ensures the image is fetched directly from the main branch.
 
 ---
-
-## 📜 License
-
-MIT License
-
----
-
-> ⭐ Star this repo if you found it helpful. Contributions are welcome!
