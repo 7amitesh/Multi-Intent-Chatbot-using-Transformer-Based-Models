@@ -4,9 +4,9 @@
 # Multi-Intent Chatbot using Transformer Models
 ````
 A Dockerized Flask web application for real-time user intent classification.  
-This project fine-tunes transformer-based models (like BERT) to accurately categorize text queries into predefined intents, achieving **94% accuracy** on a custom dataset.
+This project fine-tunes transformer-based models (like BERT) to accurately categorize text queries into predefined intents, achieving **more then 80% accuracy** on a dataset.
 
-![Multi-Intent Chatbot Interface](https://github.com/7amitesh/Multi-Intent-Chatbot-using-Transformer-Based-Models/raw/main/Screenshot_2025-08-21_055136.png)
+![Multi-Intent Chatbot Interface](https://github.com/7amitesh/Multi-Intent-Chatbot-using-Transformer-Based-Models/blob/main/Screenshot%202025-08-21%20055136.png)
 *The web interface showing an intent prediction for the query "book me a flight to Delhi".*
 
 ---
