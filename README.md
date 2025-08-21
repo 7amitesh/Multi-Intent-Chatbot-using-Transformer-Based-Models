@@ -109,11 +109,10 @@ curl -X POST http://localhost:5000/predict \
 
 ## 👨‍💻 Author
 
-**Amitesh Sharma**
+**Amitesh**
 
 * GitHub: [@7amitesh](https://github.com/7amitesh)
-* LinkedIn: [Amitesh Sharma](https://www.linkedin.com/in/amitesh-sharma-7a28b421b/)
-* Portfolio: \[Your Portfolio Link]
+* Portfolio: [amiteshportfolio](https://amiteshportfolio.framer.website)
 
 ---
 
